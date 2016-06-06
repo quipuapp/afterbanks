@@ -100,8 +100,11 @@ describe Afterbanks::Client do
   end
 
   describe '#transactions' do
+    let(:product) { '0081-0060-00-0001234567' }
+
     it 'makes a request to the proper URL' do
-      # @client.transactions
+      skip
+      # @client.transactions(products: product)
     end
   end
 end

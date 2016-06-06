@@ -48,24 +48,26 @@ module Afterbanks
     end
 
     def products(options = {})
-      options = { servicekey: service_key,
-                  service: service,
-                  user: user,
-                  pass: pass,
-                  products: 'GLOBAL' }
+      default_options = { servicekey: service_key,
+                          service: service,
+                          user: user,
+                          pass: pass,
+                          products: 'GLOBAL' }
+      request_options = default_options.merge(options)
 
-      Request.new(self, :post, '/serviceV3/', options).perform
+      Request.new(self, :post, '/serviceV3/', request_options).perform
     end
 
     def transactions(options = {})
-      options = { servicekey: service_key,
-                  service: service,
-                  user: user,
-                  pass: pass }
+      default_options = { servicekey: service_key,
+                          service: service,
+                          user: user,
+                          pass: pass }
+      request_options = default_options.merge(options)
 
-      options[:startdate] ||= Date.today.strftime('%d-%m-%Y')
+      request_options[:startdate] ||= Date.today.strftime('%d-%m-%Y')
 
-      Request.new(self, :post, '/serviceV3/', options).perform
+      Request.new(self, :post, '/serviceV3/', request_options).perform
     end
   end
 end
