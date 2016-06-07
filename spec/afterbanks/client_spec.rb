@@ -98,7 +98,8 @@ describe Afterbanks::Client do
     end
 
     it 'makes a request to the proper URL' do
-      @client.products
+      response = @client.products
+      expect(response.products.count).to eq(5)
 
       products_request = a_request(:post, url)
       expect(products_request).to have_been_made.times(1)
@@ -122,7 +123,12 @@ describe Afterbanks::Client do
     let(:startdate) { '01-06-2016' }
 
     it 'makes a request to the proper URL' do
-      @client.transactions(products: product, startdate: startdate)
+      response = @client.transactions(products: product, startdate: startdate)
+      expect(response.balance).to eq(5736.39)
+      expect(response.currency).to eq('EUR')
+      expect(response.description).to eq('TEST ACCOUNT')
+      expect(response.product).to eq('0081-0060-91-0001234567')
+      expect(response.transactions.count).to eq(16)
 
       transactions_request = a_request(:post, url)
       expect(transactions_request).to have_been_made.times(1)

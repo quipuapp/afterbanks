@@ -62,7 +62,10 @@ module Afterbanks
                           products: 'GLOBAL' }
       request_options = default_options.merge(options)
 
-      Request.new(self, :post, '/serviceV3/', request_options).perform
+      request = Request.new(self, :post, '/serviceV3/', request_options)
+      response = request.perform
+
+      Response::Products.new(response, request)
     end
 
     def transactions(options = {})
@@ -74,7 +77,10 @@ module Afterbanks
 
       request_options[:startdate] ||= Date.today.strftime('%d-%m-%Y')
 
-      Request.new(self, :post, '/serviceV3/', request_options).perform
+      request = Request.new(self, :post, '/serviceV3/', request_options)
+      response = request.perform
+
+      Response::Transactions.new(response, request)
     end
   end
 end

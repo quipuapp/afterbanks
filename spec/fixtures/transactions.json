@@ -1,0 +1,151 @@
+[
+    {
+        "balance": 5736.39,
+        "currency": "EUR",
+        "description": "TEST ACCOUNT",
+        "product": "0081-0060-91-0001234567",
+        "transactions": [
+            {
+                "amount": -20.8,
+                "balance": 5736.39,
+                "date": "06-06-2016",
+                "date2": "09-06-2016",
+                "description": "Store Purchase"
+            },
+            {
+                "amount": -21.9,
+                "balance": 5757.19,
+                "date": "06-06-2016",
+                "date2": "08-06-2016",
+                "description": "Restaurant Bill"
+            },
+            {
+                "amount": -11.8,
+                "balance": 5779.09,
+                "date": "06-06-2016",
+                "date2": "08-06-2016",
+                "description": "Movie Tickets"
+            },
+            {
+                "amount": -26.93,
+                "balance": 5790.89,
+                "date": "06-06-2016",
+                "date2": "07-06-2016",
+                "description": "Amazon Bill"
+            },
+            {
+                "amount": -21.3,
+                "balance": 5817.82,
+                "date": "06-06-2016",
+                "date2": "07-06-2016",
+                "description": "Fast Food"
+            },
+            {
+                "amount": -76.98,
+                "balance": 5839.12,
+                "date": "06-06-2016",
+                "date2": "07-06-2016",
+                "description": "Supermarket"
+            },
+            {
+                "amount": -23,
+                "balance": 5916.1,
+                "date": "06-06-2016",
+                "date2": "07-06-2016",
+                "description": "Haircut"
+            },
+            {
+                "amount": -12.9,
+                "balance": 5939.1,
+                "date": "03-06-2016",
+                "date2": "06-06-2016",
+                "description": "Supermarket"
+            },
+            {
+                "amount": -3.45,
+                "balance": 5952,
+                "date": "03-06-2016",
+                "date2": "03-06-2016",
+                "description": "Fees"
+            },
+            {
+                "amount": -575,
+                "balance": 5955.45,
+                "date": "03-06-2016",
+                "date2": "03-06-2016",
+                "description": "Rent"
+            },
+            {
+                "amount": -7.26,
+                "balance": 6530.45,
+                "date": "03-06-2016",
+                "date2": "03-06-2016",
+                "description": "Cellphone Bill"
+            },
+            {
+                "amount": -6.9,
+                "balance": 6537.71,
+                "date": "03-06-2016",
+                "date2": "03-06-2016",
+                "description": "Cellphone Bill"
+            },
+            {
+                "amount": -97.36,
+                "balance": 6544.61,
+                "date": "02-06-2016",
+                "date2": "02-06-2016",
+                "description": "Power Bill"
+            },
+            {
+                "amount": -21.51,
+                "balance": 6641.97,
+                "date": "01-06-2016",
+                "date2": "04-06-2016",
+                "description": "Supermarket Bill"
+            },
+            {
+                "amount": -0.16,
+                "balance": 6663.48,
+                "date": "01-06-2016",
+                "date2": "04-06-2016",
+                "description": "Comission"
+            },
+            {
+                "amount": -5.43,
+                "balance": 6663.64,
+                "date": "01-06-2016",
+                "date2": "04-06-2016",
+                "description": "Hosting"
+            }
+        ],
+        "type": "checking"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "DEBIT CARD",
+        "product": "5402________9999",
+        "type": "debit"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "ANOTHER DEBIT CARD",
+        "product": "5402________9998",
+        "type": "debit"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "CREDIT CARD",
+        "product": "7083________6666",
+        "type": "card"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "CreditLine",
+        "product": "Credito",
+        "type": "credit"
+    }
+]
