@@ -50,7 +50,12 @@ describe Afterbanks::Client do
     end
 
     it 'makes a request to the proper URL' do
-      @client.me
+      response = @client.me
+
+      expect(response.limit).to eq(100)
+      expect(response.counter).to eq(41)
+      expect(response.remaining_calls).to eq(59)
+      expect(response.date_renewal).to eq(Date.new(2016, 4, 27))
 
       me_request = a_request(:post, url)
       expect(me_request).to have_been_made.times(1)
@@ -71,7 +76,8 @@ describe Afterbanks::Client do
     end
 
     it 'makes a request to the proper URL' do
-      @client.forms
+      response = @client.forms
+      expect(response.forms.count).to eq(87)
 
       forms_request = a_request(:get, url)
       expect(forms_request).to have_been_made.times(1)
@@ -100,11 +106,26 @@ describe Afterbanks::Client do
   end
 
   describe '#transactions' do
-    let(:product) { '0081-0060-00-0001234567' }
+    let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
+    let!(:request_stub) {
+      stub_request(:post, url).
+        to_return(status: 200,
+                  body: fixture('transactions.json'),
+                  headers: { content_type: 'application/json; charset=utf-8'} )
+    }
+
+    after do
+      remove_request_stub(request_stub)
+    end
+
+    let(:product) { '0081-0060-91-0001234567' }
+    let(:startdate) { '01-06-2016' }
 
     it 'makes a request to the proper URL' do
-      skip
-      # @client.transactions(products: product)
+      @client.transactions(products: product, startdate: startdate)
+
+      transactions_request = a_request(:post, url)
+      expect(transactions_request).to have_been_made.times(1)
     end
   end
 end

@@ -1,4 +1,5 @@
 require 'afterbanks/request'
+require 'afterbanks/response'
 require 'afterbanks/configuration'
 require 'date'
 
@@ -37,14 +38,20 @@ module Afterbanks
     def me
       options = { servicekey: service_key }
 
-      Request.new(self, :post, '/me/', options).perform
+      request = Request.new(self, :post, '/me/', options)
+      response = request.perform
+
+      Response::Me.new(response, request)
     end
 
     def forms(country_code = nil)
       options = {}
       options.merge!(country_code: country_code) if country_code
 
-      Request.new(self, :get, '/forms/', options).perform
+      request = Request.new(self, :get, '/forms/', options)
+      response = request.perform
+
+      Response::Forms.new(response, request)
     end
 
     def products(options = {})
