@@ -36,65 +36,65 @@ describe Afterbanks::Client do
   end
 
   describe '#me' do
-    before do
-      @request_stub =
-        stub_request(:post, @client.configuration.endpoint + '/me/').
+    let(:url) { "#{@client.configuration.endpoint}/me/" }
+    let!(:request_stub) {
+      stub_request(:post, url).
         with(body: { 'servicekey' => @test_credentials[:service_key] }).
         to_return(status: 200,
                   body: fixture('me.json'),
                   headers: { content_type: 'application/json; charset=utf-8'} )
-    end
+    }
 
     after do
-      remove_request_stub(@request_stub)
+      remove_request_stub(request_stub)
     end
 
     it 'makes a request to the proper URL' do
       @client.me
 
-      me_request = a_request(:post, @client.configuration.endpoint + '/me/')
+      me_request = a_request(:post, url)
       expect(me_request).to have_been_made.times(1)
     end
   end
 
   describe '#forms' do
-    before do
-      @request_stub =
-        stub_request(:get, @client.configuration.endpoint + '/forms/').
+    let(:url) { "#{@client.configuration.endpoint}/forms/" }
+    let!(:request_stub) {
+      stub_request(:get, url).
         to_return(status: 200,
                   body: fixture('forms.json'),
                   headers: { content_type: 'application/json; charset=utf-8'} )
-    end
+    }
 
     after do
-      remove_request_stub(@request_stub)
+      remove_request_stub(request_stub)
     end
 
     it 'makes a request to the proper URL' do
       @client.forms
 
-      forms_request = a_request(:get, @client.configuration.endpoint + '/forms/')
+      forms_request = a_request(:get, url)
       expect(forms_request).to have_been_made.times(1)
     end
   end
 
   describe '#products' do
-    before do
-      @request_stub =
-        stub_request(:post, @client.configuration.endpoint + '/serviceV3/').
+    let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
+    let!(:request_stub) {
+      stub_request(:post, url).
         to_return(status: 200,
                   body: fixture('products.json'),
                   headers: { content_type: 'application/json; charset=utf-8'} )
-    end
+    }
 
     after do
-      remove_request_stub(@request_stub)
+      remove_request_stub(request_stub)
     end
 
     it 'makes a request to the proper URL' do
       @client.products
 
-      products_request = a_request(:post, @client.configuration.endpoint + '/serviceV3/')
+      products_request = a_request(:post, url)
       expect(products_request).to have_been_made.times(1)
     end
   end
