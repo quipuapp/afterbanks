@@ -1,15 +1,8 @@
 require 'afterbanks/response/transactions/transaction'
 
 module Afterbanks
-  module Response
-    class Transactions
-      attr_reader :request, :response
-
-      def initialize(response, request)
-        @response = response
-        @request = request
-      end
-
+  class Response
+    class Transactions < Response
       def product_info
         response.first
       end

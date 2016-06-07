@@ -1,6 +1,6 @@
 module Afterbanks
-  module Response
-    class Transactions
+  class Response
+    class Transactions < Response
       class Transaction
         def initialize(form_data)
           form_data.each do |key, value|

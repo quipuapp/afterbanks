@@ -1,13 +1,6 @@
 module Afterbanks
-  module Response
-    class Me
-      attr_reader :request, :response
-
-      def initialize(response, request)
-        @response = response
-        @request = request
-      end
-
+  class Response
+    class Me < Response
       def limit
         response[:limit].to_i
       end
