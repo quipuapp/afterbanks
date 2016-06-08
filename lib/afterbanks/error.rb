@@ -40,6 +40,7 @@ module Afterbanks
       401 => Afterbanks::Error::Unauthorized,
       403 => Afterbanks::Error::Forbidden,
       404 => Afterbanks::Error::NotFound,
+      417 => Afterbanks::Error::ExpectationFailed,
       500 => Afterbanks::Error::InternalServerError,
       502 => Afterbanks::Error::BadGateway,
       503 => Afterbanks::Error::ServiceUnavailable,
@@ -47,6 +48,7 @@ module Afterbanks
     }.freeze
 
     module Code
+      INVALID_PASSWORD = 3
       INVALID_SERVICE_KEY = 50
     end
 
@@ -68,6 +70,8 @@ module Afterbanks
           ['', nil]
         elsif body[:error]
           [body[:error], nil]
+        elsif body[:message]
+          [body[:message], nil]
         end
       end
     end
