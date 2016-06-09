@@ -17,6 +17,9 @@ module Afterbanks
     # Raised when Afterbanks returns the HTTP status code 404
     NotFound = Class.new(ClientError)
 
+    # Raised when Afterbanks returns the HTTP status code 417
+    ExpectationFailed = Class.new(ClientError)
+
     # Raised when Afterbanks encounters an invalid servicekey
     InvalidServiceKey = Class.new(ClientError)
 
