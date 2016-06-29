@@ -5,6 +5,9 @@ module Afterbanks
 
     ClientError = Class.new(self)
 
+    # Raised when Afterbanks returns the HTTP status code 202...?
+    MalformedJson = Class.new(ClientError)
+
     # Raised when Afterbanks returns the HTTP status code 400
     BadRequest = Class.new(ClientError)
 
@@ -39,6 +42,7 @@ module Afterbanks
     GatewayTimeout = Class.new(ServerError)
 
     ERRORS = {
+      202 => Afterbanks::Error::MalformedJson,
       400 => Afterbanks::Error::BadRequest,
       401 => Afterbanks::Error::Unauthorized,
       403 => Afterbanks::Error::Forbidden,
