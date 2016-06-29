@@ -4,6 +4,8 @@ require 'afterbanks/error'
 
 module Afterbanks
   class Request
+    attr_accessor :options
+
     def initialize(client, request_method, path, options = {})
       @client = client
       @request_method = request_method

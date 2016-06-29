@@ -4,7 +4,7 @@ module Afterbanks
   class Response
     class Transactions < Response
       def product_info
-        response.first
+        response.find { |product| product[:product] == request.options[:products] }
       end
 
       def transactions
