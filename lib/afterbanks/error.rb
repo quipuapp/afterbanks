@@ -50,6 +50,9 @@ module Afterbanks
     # Missing Product on Transactions Error
     MissingProduct = Class.new(FormatError)
 
+    # Missing Transactions on Transactions Error
+    MissingTransactions = Class.new(FormatError)
+
     ERRORS = {
       202 => Afterbanks::Error::MalformedJson,
       400 => Afterbanks::Error::BadRequest,

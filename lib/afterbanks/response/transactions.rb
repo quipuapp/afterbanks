@@ -14,6 +14,8 @@ module Afterbanks
       end
 
       def transactions
+        raise Afterbanks::Error::MissingTransactions.new("Missing transactions from product '#{requested_product}'", nil, response) unless product_info[:transactions]
+
         product_info[:transactions].map { |transaction| Afterbanks::Response::Transactions::Transaction.new(requested_product, requested_service, transaction) }
       end
 

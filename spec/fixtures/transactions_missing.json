@@ -1,0 +1,37 @@
+[
+    {
+        "balance": 5736.39,
+        "currency": "EUR",
+        "description": "TEST ACCOUNT",
+        "product": "0081-0060-91-0001234567",
+        "type": "checking"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "DEBIT CARD",
+        "product": "5402________9999",
+        "type": "debit"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "ANOTHER DEBIT CARD",
+        "product": "5402________9998",
+        "type": "debit"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "CREDIT CARD",
+        "product": "7083________6666",
+        "type": "card"
+    },
+    {
+        "balance": 0,
+        "currency": "EUR",
+        "description": "CreditLine",
+        "product": "Credito",
+        "type": "credit"
+    }
+]

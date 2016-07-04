@@ -163,6 +163,29 @@ describe Afterbanks::Client do
         end
       end
 
+      context 'because the requested product does not include the transactions' do
+        let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
+        let!(:request_stub) {
+          stub_request(:post, url).
+            to_return(status: 200,
+                      body: fixture('transactions_missing.json'),
+                      headers: { content_type: 'application/json; charset=utf-8'} )
+        }
+
+        after do
+          remove_request_stub(request_stub)
+        end
+
+        it 'blows up when transactions are accessed' do
+          response = @client.transactions(products: product, startdate: startdate)
+
+          transactions_request = a_request(:post, url)
+          expect(transactions_request).to have_been_made.times(1)
+
+          expect { response.transactions }.to raise_error(Afterbanks::Error::MissingTransactions)
+        end
+      end
+
       context 'because some transactions are just invalid' do
         let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
         let!(:request_stub) {
