@@ -1,7 +1,7 @@
 module Afterbanks
   class Error < StandardError
     # @return [Integer]
-    attr_reader :code
+    attr_reader :code, :response
 
     ClientError = Class.new(self)
 
@@ -40,6 +40,15 @@ module Afterbanks
 
     # Raised when Afterbanks returns the HTTP status code 504
     GatewayTimeout = Class.new(ServerError)
+
+    # Format Errors
+    FormatError = Class.new(self)
+
+    # Invalid Transaction Error
+    InvalidTransaction = Class.new(FormatError)
+
+    # Missing Product on Transactions Error
+    MissingProduct = Class.new(FormatError)
 
     ERRORS = {
       202 => Afterbanks::Error::MalformedJson,
@@ -88,9 +97,10 @@ module Afterbanks
     # @param message [Exception, String]
     # @param code [Integer]
     # @return [Afterbanks::Error]
-    def initialize(message = '', code = nil)
+    def initialize(message = '', code = nil, response = nil)
       super(message)
       @code = code
+      @response = response
     end
   end
 end

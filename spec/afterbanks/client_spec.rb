@@ -107,31 +107,84 @@ describe Afterbanks::Client do
   end
 
   describe '#transactions' do
-    let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
-    let!(:request_stub) {
-      stub_request(:post, url).
-        to_return(status: 200,
-                  body: fixture('transactions.json'),
-                  headers: { content_type: 'application/json; charset=utf-8'} )
-    }
+    context 'when it works' do
+      let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
+      let!(:request_stub) {
+        stub_request(:post, url).
+          to_return(status: 200,
+                    body: fixture('transactions.json'),
+                    headers: { content_type: 'application/json; charset=utf-8'} )
+      }
 
-    after do
-      remove_request_stub(request_stub)
+      after do
+        remove_request_stub(request_stub)
+      end
+
+      let(:product) { '0081-0060-91-0001234567' }
+      let(:startdate) { '01-06-2016' }
+
+      it 'makes a request to the proper URL' do
+        response = @client.transactions(products: product, startdate: startdate)
+        expect(response.balance).to eq(5736.39)
+        expect(response.currency).to eq('EUR')
+        expect(response.description).to eq('TEST ACCOUNT')
+        expect(response.product).to eq('0081-0060-91-0001234567')
+        expect(response.transactions.count).to eq(16)
+
+        transactions_request = a_request(:post, url)
+        expect(transactions_request).to have_been_made.times(1)
+      end
     end
 
-    let(:product) { '0081-0060-91-0001234567' }
-    let(:startdate) { '01-06-2016' }
+    context 'when it does NOT work' do
+      let(:product) { '0081-0060-91-0001234567' }
+      let(:startdate) { '01-06-2016' }
 
-    it 'makes a request to the proper URL' do
-      response = @client.transactions(products: product, startdate: startdate)
-      expect(response.balance).to eq(5736.39)
-      expect(response.currency).to eq('EUR')
-      expect(response.description).to eq('TEST ACCOUNT')
-      expect(response.product).to eq('0081-0060-91-0001234567')
-      expect(response.transactions.count).to eq(16)
+      context 'because the requested product is missing altogether' do
+        let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
+        let!(:request_stub) {
+          stub_request(:post, url).
+            to_return(status: 200,
+                      body: fixture('transactions_product_missing.json'),
+                      headers: { content_type: 'application/json; charset=utf-8'} )
+        }
 
-      transactions_request = a_request(:post, url)
-      expect(transactions_request).to have_been_made.times(1)
+        after do
+          remove_request_stub(request_stub)
+        end
+
+        it 'blows up when transactions are accessed' do
+          response = @client.transactions(products: product, startdate: startdate)
+
+          transactions_request = a_request(:post, url)
+          expect(transactions_request).to have_been_made.times(1)
+
+          expect { response.transactions }.to raise_error(Afterbanks::Error::MissingProduct)
+        end
+      end
+
+      context 'because some transactions are just invalid' do
+        let(:url) { "#{@client.configuration.endpoint}/serviceV3/" }
+        let!(:request_stub) {
+          stub_request(:post, url).
+            to_return(status: 200,
+                      body: fixture('transactions_invalid.json'),
+                      headers: { content_type: 'application/json; charset=utf-8'} )
+        }
+
+        after do
+          remove_request_stub(request_stub)
+        end
+
+        it 'blows up when the specific transaction is accessed' do
+          response = @client.transactions(products: product, startdate: startdate)
+
+          transactions_request = a_request(:post, url)
+          expect(transactions_request).to have_been_made.times(1)
+
+          expect { response.transactions.map(&:date) }.to raise_error(Afterbanks::Error::InvalidTransaction)
+        end
+      end
     end
   end
 end
